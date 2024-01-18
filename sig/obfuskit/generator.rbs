@@ -1,0 +1,10 @@
+module Obfuskit
+  class Generator
+    def generate: -> void
+
+    private
+    def generate_kotlin: -> String
+    def generate_swift: -> String
+    def obfuscator_source: -> String
+  end
+end
