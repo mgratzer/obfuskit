@@ -45,15 +45,23 @@ end
 
 # Function to generate Kotlin code
 def generate_kotlin(args)
+    # Get the first argument as the package name
+    package = args.shift
+    # If no package name is provided, return an empty string
+    if package == nil
+        puts "No package name provided."
+        return nil
+    end
     # Get the source code for the obfuscator
     obfuscator_source = obfuscator_source('Omin.kt')
     # Generate a random UUID and remove the hyphens
     obfuscation_salt = SecureRandom.uuid.to_s.gsub("-", "")
     # Create a new instance of the O class with the obfuscation salt
     o = O.new("_" + obfuscation_salt)
-    
+
     # Start building the Kotlin code
-    code = "object ObfusKit {\n"
+    code = "package #{package}\n\n"
+    code += "object ObfusKit {\n"
     # Add the obfuscation salt and the obfuscator to the code
     code += <<-STRING
 \tprivate val _o = O(_#{obfuscation_salt}::class.java.simpleName)
@@ -62,7 +70,7 @@ STRING
 
     # For each argument, if it's in the environment variables, add it to the code
     args.each_with_index do |arg, index|
-        if ENV[arg] != nil 
+        if ENV[arg] != nil
             code += "\tval #{arg}: String = _o.r(byteArrayOf(#{o.o(ENV[arg]).map { |i| i.to_s }.join(', ')}))\n"
         end
     end
