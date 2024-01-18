@@ -1,0 +1,7 @@
+module Obfuskit
+  class Obfuscator
+    @length: Int
+    @salt: String
+    def salt: -> String
+  end
+end

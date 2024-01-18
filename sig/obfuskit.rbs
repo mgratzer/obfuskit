@@ -1,0 +1,3 @@
+module Obfuskit
+  VERSION: String
+end

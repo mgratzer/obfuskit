@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+require 'obfuskit/generator'
+generator = Obfuskit::Generator.new
+generator.generate()

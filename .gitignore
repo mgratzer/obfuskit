@@ -58,3 +58,7 @@ build-iPhoneSimulator/
 .tool-versions
 .env
 .DS_Store
+
+# rspec failure tracking
+.rspec_status
+.idea
