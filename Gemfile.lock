@@ -6,8 +6,11 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
+    cgi (0.4.1)
     diff-lcs (1.5.0)
     dotenv (2.8.1)
+    erb (4.0.4)
+      cgi (>= 0.3.3)
     rake (13.1.0)
     rspec (3.12.0)
       rspec-core (~> 3.12.0)
@@ -29,6 +32,7 @@ PLATFORMS
 
 DEPENDENCIES
   dotenv (~> 2.8.1)
+  erb (~> 4.0.4)
   obfuskit!
   rake (~> 13.0)
   rspec (~> 3.0)

@@ -1,7 +1,10 @@
 module Obfuskit
   class Obfuscator
-    @length: Int
+    @length: Integer
     @salt: String
+
     def salt: -> String
+    def obfuscate: (String) -> [Integer]
+    def reveal: ([Integer]) -> String
   end
 end

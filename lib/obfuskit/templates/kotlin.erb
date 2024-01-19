@@ -1,0 +1,12 @@
+package <%= package %>
+
+public object ObfusKit {
+  private val _o = O(_6572131328ef462d9d4a05cf4b2a2516::class.java.simpleName)
+  private class _6572131328ef462d9d4a05cf4b2a2516
+
+<% values.each do |name, values| -%>
+  public val <%= name %>: String = _o.r(byteArrayOf(<%= values.map { |i| i.to_s }.join(', ') %>))
+<% end -%>
+}
+
+private class O{private val a:ByteArray;private val b:Int;constructor(s:String){a=s.toByteArray(Charsets.UTF_8);b=a.size};fun o(v:String):ByteArray{val d=v.toByteArray(Charsets.UTF_8);return ByteArray(d.size){i->(d[i].toInt() xor a[i%b].toInt()).toByte()}};fun r(value:ByteArray):String{return String(ByteArray(value.size){i->(value[i].toInt() xor a[i%b].toInt()).toByte()},Charsets.UTF_8)}}
