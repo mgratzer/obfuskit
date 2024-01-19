@@ -62,5 +62,5 @@ class O{private val a:ByteArray;private val b:Int;constructor(s:String){a=s.toBy
 - [x] Read secrets from the Environment 
 - [x] Add dynamic salt for obfuscation
 - [x] Support for .env files
-- [ ] Use template engine for code generation
+- [x] Use template engine for code generation
 - [ ] Read secrets from 1Password CLI
