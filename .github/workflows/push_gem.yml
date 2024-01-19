@@ -1,9 +1,8 @@
 name: Push gem to RubyGems.org
 
 on:
-  push:
-    tags:
-      - v*
+  release:
+    types: [published]
 
 jobs:
   push:
