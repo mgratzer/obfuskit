@@ -1,10 +1,13 @@
 module Obfuskit
   class Obfuscator
-    @length: Integer
-    @salt: String
+    attr_reader salt: String
 
-    def salt: -> String
+    def initialize: (salt: String) -> void
     def obfuscate: (String) -> [Integer]
     def reveal: ([Integer]) -> String
+
+    private
+    attr_reader salt_length: Integer
+    attr_reader salt_bytes: [Integer]
   end
 end
