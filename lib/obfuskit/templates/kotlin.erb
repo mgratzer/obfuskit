@@ -1,8 +1,8 @@
 package <%= package %>
 
 public object ObfusKit {
-  private val _o = O(_6572131328ef462d9d4a05cf4b2a2516::class.java.simpleName)
-  private class _6572131328ef462d9d4a05cf4b2a2516
+  private val _o = O(<%= salt %>::class.java.simpleName)
+  private class <%= salt %>
 
 <% values.each do |name, values| -%>
   public val <%= name %>: String = _o.r(byteArrayOf(<%= values.map { |i| i.to_s }.join(', ') %>))
