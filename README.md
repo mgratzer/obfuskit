@@ -6,13 +6,13 @@ ObfusKit is a ruby script to generate obfuscated secrets for `Swift` and `Kotlin
 
 Install the latest version of the gem using:
 
-```
+```sh
 gem install obfuskit
 ```
 
 Call `obfuskit -h` for help.
 
-```bash
+```sh
 Usage: obfuskit [options]
 
 Specific options:
@@ -21,6 +21,7 @@ Specific options:
         --keys
     -p, --package [PACKAGE]          Package name for Kotlin
     -t, --type [TYPE]                Output type name. Defaults to `ObfusKit`
+    -e, --env [PATH]                 Path to an alternative .env file
 
 Common options:
     -h, --help                       Show this message
@@ -49,8 +50,7 @@ enum ObfusKit {
 	private class _3f3eccd2e5ea46b39738e5502bda6bef { }
 	private static let _o = O(String(describing: _3f3eccd2e5ea46b39738e5502bda6bef.self))
 }
-
-struct O { private let c: [UInt8]; private let l: Int; init(_ s: String) { self.init([UInt8](s.utf8)) }; init(_ c: [UInt8]) { self.c = c; l = c.count }; @inline(__always) func o(_ v: String) -> [UInt8] { [UInt8](v.utf8).enumerated().map { $0.element ^ c[$0.offset % l] } }; @inline(__always) func r(_ value: [UInt8]) -> String { String(bytes: value.enumerated().map { $0.element ^ c[$0.offset % l] }, encoding: .utf8) ?? "" } }
+// ...
 ```
 
 ### Kotlin 
@@ -72,9 +72,34 @@ object ObfusKit {
         val SECRET_1: String = _o.r(byteArrayOf(30, 116, 118, 115, 119, 119, 116))
         val SECRET_2: String = _o.r(byteArrayOf(24, 112, 112, 115, 113, 115, 114))
 }
+// ...
+```
 
-class O{private val a:ByteArray;private val b:Int;constructor(s:String){a=s.toByteArray(Charsets.UTF_8);b=a.size};fun o(v:String):ByteArray{val d=v.toByteArray(Charsets.UTF_8);return ByteArray(d.size){i->(d[i].toInt() xor a[i%b].toInt()).toByte()}};fun r(value:ByteArray):String{return String(ByteArray(value.size){i->(value[i].toInt() xor a[i%b].toInt()).toByte()},Charsets.UTF_8)}}
+## Customizations
 
+### The output type name
+
+The default generated type name in the target languate is `ObfusKit`. Customize this name with the `-t` option.
+
+```sh
+obfuskit -l swift -k SECRET_1,SECRET_2 -t Secrets > generated.swift
+```
+
+which will generate the Swift type `Secrets` instead of `ObfusKit`.
+
+```swift
+import Foundation
+
+enum Secrets {
+// ..
+```
+
+### Use a custom .env file location
+
+Use the `-e` option to define the path to a different `.env` file. e.g. if you want to reuse the the `fastlane/.env` file.
+
+```sh
+obfuskit -l swift -k SECRET_3,SECRET_4 -e fastlane/.env > generated.swift
 ```
 
 ## Features
