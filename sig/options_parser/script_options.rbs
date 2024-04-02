@@ -1,0 +1,7 @@
+module OptionsParser
+  class ScriptOptions
+    attr_accessor env_var_keys: [String]
+    attr_accessor output_language: String?
+    attr_accessor package_name: String?
+  end
+end

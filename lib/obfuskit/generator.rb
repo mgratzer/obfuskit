@@ -1,13 +1,10 @@
 # frozen_string_literal: true
 require_relative 'obfuscator'
+require_relative 'options_parser'
 require 'securerandom'
 require 'dotenv'
 require 'erb'
-
-module Language
-  SWIFT = "Swift"
-  KOTLIN = "Kotlin"
-end
+require 'optparse'
 
 module Obfuskit
 
@@ -15,31 +12,30 @@ module Obfuskit
 
     def generate()
 
+      parser = OptionsParser.new
+      options = parser.parse(ARGV)
+
+      pp options
+
       Dotenv.load
-      args = ARGV
-      language_key = args.shift.downcase
 
-      language_map = {
-        "swift" => Language::SWIFT,
-        "kotlin" => Language::KOTLIN,
-        "kt" => Language::KOTLIN
-      }
-
-      if language_key != nil && language_map.key?(language_key)
+      if !options.output_language.nil? && options.env_var_keys.length.positive?
 
         salt = SecureRandom.uuid.to_s.gsub("-", "")
         obfuscator = Obfuscator.new("_" + salt)
 
-        case language_map[language_key]
-        when Language::SWIFT
-          puts generate_swift(args, obfuscator)
+        if options.output_language == :swift
+          puts generate_swift(options.env_var_keys, obfuscator)
 
-        when Language::KOTLIN
-          puts generate_kotlin(args, obfuscator)
+        elsif options.output_language == :kotlin && !options.package_name.nil?
+        puts generate_kotlin(options.env_var_keys, obfuscator)
+
+        else
+        STDERR.puts parser.parse(%w[--help])
         end
 
       else
-        STDERR.puts "Please specify a valid language."
+        STDERR.puts parser.parse(%w[--help])
       end
     end
 
@@ -62,7 +58,7 @@ module Obfuskit
 
     def obfuscated_values_from_env(args, obfuscator)
       args.map { |name|
-        ENV[name] != nil ? [name, obfuscator.obfuscate(ENV[name])] : nil
+        !ENV[name].nil? ? [name, obfuscator.obfuscate(ENV[name])] : nil
       }.compact.to_h
     end
 
