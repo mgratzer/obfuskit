@@ -29,7 +29,12 @@ Common options:
 
 ### Swift
 
-To generate Swift code run the following command:
+To generate Swift code, run the following command:
+
+```sh
+obfuskit -l swift -k SECRET_1,SECRET_2 > generated.swift
+```
+
 It will create the file `generated.swift` containing an obfuscated version of the environment variables `SECRET_1` and `SECRET_2`. 
 This file should be excluded from the git repository and generated at build time. 
 The obfuscation salt is regenerated for each run.
@@ -49,7 +54,7 @@ enum ObfusKit {
 
 ### Kotlin 
 
-The same concept applies for the `kotlin` language using:
+The same concept applies to the Kotlin language using:
 
 ```sh
 obfuskit -l kotlin -p com.myapp.configuration.environment -k SECRET_1,SECRET_2 > generated.kt
@@ -73,8 +78,7 @@ object ObfusKit {
 
 ### The output type name
 
-The default generated type name in the target language is `ObfusKit``. Customize this name with the `-t` option.
-Which will generate the Swift type `Secrets` instead of `ObfusKit`.
+The default generated type name in the target language is `ObfusKit`. Customize this name with the `-t` option to generate the Swift type `Secrets` instead of `ObfusKit`.
 
 ```swift
 import Foundation
@@ -85,7 +89,7 @@ enum Secrets {
 
 ### Use a custom .env file location
 
-Use the `-e` option to define the path to a different `.env` file, e.g. if you want to reuse the `fastlane/.env` file.
+Use the `-e` option to define the path to a different `.env` file, e.g., if you want to reuse the `fastlane/.env` file.
 
 ```sh
 obfuskit -l swift -k SECRET_3,SECRET_4 -e fastlane/.env > generated.swift
@@ -94,7 +98,7 @@ obfuskit -l swift -k SECRET_3,SECRET_4 -e fastlane/.env > generated.swift
 ## Features
 - [x] Generate Swift
 - [x] Generate Kotlin
-- [x] Read secrets from the Environment 
+- [x] Read Secrets from the Environment 
 - [x] Add dynamic salt for obfuscation
 - [x] Support for .env files
 - [x] Use template engine for code generation
