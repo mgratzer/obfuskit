@@ -4,13 +4,14 @@ require 'optparse'
 class OptionsParser
   class ScriptOptions
 
-    attr_accessor :output_language, :env_var_keys, :package_name, :output_type_name
+    attr_accessor :output_language, :env_var_keys, :package_name, :output_type_name, :dot_env_file_path
 
     def initialize
       self.output_language = nil
       self.env_var_keys = []
       self.package_name = nil
       self.output_type_name = "ObfusKit"
+      self.dot_env_file_path = ".env"
     end
 
     def define_options(parser)
@@ -23,6 +24,7 @@ class OptionsParser
       env_var_keys_option(parser)
       package_name_option(parser)
       output_type_name_option(parser)
+      dot_env_file_path_options(parser)
 
       parser.separator ""
       parser.separator "Common options:"
@@ -65,6 +67,12 @@ class OptionsParser
     def output_type_name_option(parser)
       parser.on("-t", "--type [TYPE]", "Output type name. Defaults to `ObfusKit`") do |value|
         self.output_type_name = value
+      end
+    end
+
+    def dot_env_file_path_options(parser)
+      parser.on("-e", "--env [PATH]", "Path to an alternative .env file") do |value|
+        self.dot_env_file_path = value
       end
     end
   end
