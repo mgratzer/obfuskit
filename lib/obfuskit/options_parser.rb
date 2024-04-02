@@ -4,12 +4,13 @@ require 'optparse'
 class OptionsParser
   class ScriptOptions
 
-    attr_accessor :output_language, :env_var_keys, :package_name
+    attr_accessor :output_language, :env_var_keys, :package_name, :output_type_name
 
     def initialize
       self.output_language = nil
       self.env_var_keys = []
       self.package_name = nil
+      self.output_type_name = "ObfusKit"
     end
 
     def define_options(parser)
@@ -21,6 +22,7 @@ class OptionsParser
       output_language_option(parser)
       env_var_keys_option(parser)
       package_name_option(parser)
+      output_type_name_option(parser)
 
       parser.separator ""
       parser.separator "Common options:"
@@ -39,9 +41,11 @@ class OptionsParser
 
     end
 
+    private
+
     def output_language_option(parser)
       parser.on("-l", "--language [LANGUAGE]", [:swift, :kotlin],
-                "Select output language (swift, kotlin). Kotlin requires a package parameter.") do |t|
+                "Output language (swift, kotlin). Kotlin requires a package parameter.") do |t|
         self.output_language = t
       end
     end
@@ -53,8 +57,14 @@ class OptionsParser
     end
 
     def package_name_option(parser)
-      parser.on("-p", "--package [PACKAGE]", "Package name for Kotlin") do |package_name|
-        self.package_name = package_name
+      parser.on("-p", "--package [PACKAGE]", "Package name for Kotlin") do |value|
+        self.package_name = value
+      end
+    end
+
+    def output_type_name_option(parser)
+      parser.on("-t", "--type [TYPE]", "Output type name. Defaults to `ObfusKit`") do |value|
+        self.output_type_name = value
       end
     end
   end
@@ -67,7 +77,7 @@ class OptionsParser
     # *options*.
 
     @options = ScriptOptions.new
-    @args = OptionParser.new do |parser|
+    OptionParser.new do |parser|
       @options.define_options(parser)
       parser.parse!(args)
     end

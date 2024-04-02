@@ -1,6 +1,6 @@
 import Foundation
 
-public enum ObfusKit {
+public enum <%= type_name %> {
 <% values.each do |name, values| -%>
   public static let <%= name %>: String = _o.r([<%= values.map { |i| i.to_s }.join(', ') %>])
 <% end -%>
