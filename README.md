@@ -1,6 +1,5 @@
 # ObfusKit
-
-ObfusKit is a ruby script to generate obfuscated secrets for `Swift` and `Kotlin`.
+ObfusKit is a ruby script that generates obfuscated secrets for `Swift` and `Kotlin`.
 
 ## Installation and usage
 
@@ -31,12 +30,7 @@ Common options:
 ### Swift
 
 To generate Swift code run the following command:
-
-```sh
-obfuskit -l swift -k SECRET_1,SECRET_2 > generated.swift
-```
-
-It will will create the file `generated.swift` containing an obfuscated version of the environment variables `SECRET_1` and `SECRET_2`. 
+It will create the file `generated.swift` containing an obfuscated version of the environment variables `SECRET_1` and `SECRET_2`. 
 This file should be excluded from the git repository and generated at build time. 
 The obfuscation salt is regenerated for each run.
 
@@ -79,13 +73,8 @@ object ObfusKit {
 
 ### The output type name
 
-The default generated type name in the target languate is `ObfusKit`. Customize this name with the `-t` option.
-
-```sh
-obfuskit -l swift -k SECRET_1,SECRET_2 -t Secrets > generated.swift
-```
-
-which will generate the Swift type `Secrets` instead of `ObfusKit`.
+The default generated type name in the target language is `ObfusKit``. Customize this name with the `-t` option.
+Which will generate the Swift type `Secrets` instead of `ObfusKit`.
 
 ```swift
 import Foundation
@@ -96,7 +85,7 @@ enum Secrets {
 
 ### Use a custom .env file location
 
-Use the `-e` option to define the path to a different `.env` file. e.g. if you want to reuse the the `fastlane/.env` file.
+Use the `-e` option to define the path to a different `.env` file, e.g. if you want to reuse the `fastlane/.env` file.
 
 ```sh
 obfuskit -l swift -k SECRET_3,SECRET_4 -e fastlane/.env > generated.swift
