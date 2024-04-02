@@ -1,5 +1,7 @@
 module OptionsParser
   class ScriptOptions
+    attr_accessor dot_env_file_path: String
+    attr_accessor dot_env_file_paths: [String]
     attr_accessor env_var_keys: [String]
     attr_accessor output_language: String?
     attr_accessor output_type_name: String
@@ -8,6 +10,8 @@ module OptionsParser
     def define_options: -> void
 
     private
+
+    def dot_env_file_path_options: -> OptionParser
     def env_var_keys_option: -> OptionParser
     def output_language_option: -> OptionParser
     def output_type_name_option: -> OptionParser

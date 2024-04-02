@@ -15,7 +15,7 @@ module Obfuskit
       parser = OptionsParser.new
       options = parser.parse(ARGV)
 
-      Dotenv.load
+      Dotenv.load(options.dot_env_file_path)
 
       if !options.output_language.nil? && options.env_var_keys.length.positive?
 
