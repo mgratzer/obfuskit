@@ -10,10 +10,29 @@ Install the latest version of the gem using:
 gem install obfuskit
 ```
 
+Call `obfuskit -h` for help.
+
+```bash
+Usage: obfuskit [options]
+
+Specific options:
+    -l, --language [LANGUAGE]        Output language (swift, kotlin). Kotlin requires a package parameter.
+    -k SECRET_1,SECRET_2,SECRET_3,   List of environment variable keys
+        --keys
+    -p, --package [PACKAGE]          Package name for Kotlin
+    -t, --type [TYPE]                Output type name. Defaults to `ObfusKit`
+
+Common options:
+    -h, --help                       Show this message
+    -v, --version                    Show version
+```
+
+### Swift
+
 To generate Swift code run the following command:
 
 ```sh
-obfuskit swift SECRET_1 SECRET_2 > generated.swift
+obfuskit -l swift -k SECRET_1,SECRET_2 > generated.swift
 ```
 
 It will will create the file `generated.swift` containing an obfuscated version of the environment variables `SECRET_1` and `SECRET_2`. 
@@ -34,10 +53,12 @@ enum ObfusKit {
 struct O { private let c: [UInt8]; private let l: Int; init(_ s: String) { self.init([UInt8](s.utf8)) }; init(_ c: [UInt8]) { self.c = c; l = c.count }; @inline(__always) func o(_ v: String) -> [UInt8] { [UInt8](v.utf8).enumerated().map { $0.element ^ c[$0.offset % l] } }; @inline(__always) func r(_ value: [UInt8]) -> String { String(bytes: value.enumerated().map { $0.element ^ c[$0.offset % l] }, encoding: .utf8) ?? "" } }
 ```
 
+### Kotlin 
+
 The same concept applies for the `kotlin` language using:
 
 ```sh
-obfuskit kotlin com.myapp.configuration.environment SECRET_1 SECRET_2 > generated.kt
+obfuskit -l kotlin -p com.myapp.configuration.environment -k SECRET_1,SECRET_2 > generated.kt
 ```
 It will create the Kotlin version `generated.kt`.
 

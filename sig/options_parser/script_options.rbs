@@ -1,0 +1,16 @@
+module OptionsParser
+  class ScriptOptions
+    attr_accessor env_var_keys: [String]
+    attr_accessor output_language: String?
+    attr_accessor output_type_name: String
+    attr_accessor package_name: String?
+
+    def define_options: -> void
+
+    private
+    def env_var_keys_option: -> OptionParser
+    def output_language_option: -> OptionParser
+    def output_type_name_option: -> OptionParser
+    def package_name_option: -> OptionParser
+  end
+end

@@ -1,0 +1,6 @@
+class OptionsParser
+  attr_reader options: ScriptOptions
+  attr_reader parser: OptionsParser
+
+  def parse: -> ScriptOptions
+end

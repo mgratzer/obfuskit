@@ -3,9 +3,9 @@ module Obfuskit
     def generate: -> void
 
     private
-    def generate_kotlin: ([String], Obfuscator) -> String
-    def generate_swift: ([String], Obfuscator) -> String
+    def generate_kotlin: ([String], String, Obfuscator) -> String
+    def generate_swift: ([String], String, Obfuscator) -> String
     def obfuscated_values_from_env: ([String], Obfuscator) -> Hash[String, [Integer]]
-    def generate_with_template: (String, Hash[String, [Integer]], String, Obfuscator) -> String
+    def generate_with_template: (String, Hash[String, [Integer]], String?, String, Obfuscator) -> String
   end
 end
