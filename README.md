@@ -74,17 +74,14 @@ object ObfusKit {
 // ...
 ```
 
-## Customizations
+#### Android Code shrinking and Obfuscation
+Proguard/R8 changes class names and method names. This will break revealing secrets at run time.
+To prevent this, add the according rules to your `proguard-rules.pro` file or use the `--keep-annotation` parameter to inject a custom annotation like `@androidx.annotation.Keep` into the generated code.
 
-### The output type name
+For example:
 
-The default generated type name in the target language is `ObfusKit`. Customize this name with the `-t` option to generate the Swift type `Secrets` instead of `ObfusKit`.
-
-```swift
-import Foundation
-
-enum Secrets {
-// ..
+```sh
+obfuskit -l kotlin -p com.myapp.configuration.environment -k SECRET_1,SECRET_2 --keep-annotation @androidx.annotation.Keep > generated.kt
 ```
 
 ### Use a custom .env file location
