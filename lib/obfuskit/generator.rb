@@ -25,10 +25,10 @@ module Obfuskit
         values = obfuscated_values_from_env(options.env_var_keys, obfuscator)
 
         if options.output_language == :swift
-          puts generate_with_template("swift", values, nil, options.output_type_name, obfuscator)
+          puts generate_with_template("swift", values, nil, options.output_type_name, obfuscator, options.keep_annotation)
 
         elsif options.output_language == :kotlin && !options.package_name.nil?
-          puts generate_with_template("kotlin", values, options.package_name, options.output_type_name, obfuscator)
+          puts generate_with_template("kotlin", values, options.package_name, options.output_type_name, obfuscator, options.keep_annotation)
 
         else
         STDERR.puts parser.parse(%w[--help])
@@ -47,7 +47,7 @@ module Obfuskit
       end.compact.to_h
     end
 
-    def generate_with_template(template_name, values, package, type_name, obfuscator)
+    def generate_with_template(template_name, values, package, type_name, obfuscator, keep_annotation)
       file = File.expand_path("templates/#{template_name}.erb", __dir__)
       template = ERB.new(File.read(file), trim_mode: "-")
       template.result_with_hash(
@@ -55,6 +55,7 @@ module Obfuskit
         package: package,
         type_name: type_name,
         salt: obfuscator.salt,
+        keep_annotation: keep_annotation
         )
     end
 

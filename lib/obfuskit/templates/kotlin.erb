@@ -2,6 +2,7 @@ package <%= package %>
 
 public object <%= type_name %> {
   private val _o = O(<%= salt %>::class.java.simpleName)
+  <%= keep_annotation unless keep_annotation.nil? %>
   private class <%= salt %>
 
 <% values.each do |name, values| -%>

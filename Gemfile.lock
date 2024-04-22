@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    obfuskit (0.2.1)
+    obfuskit (0.3.0)
 
 GEM
   remote: https://rubygems.org/

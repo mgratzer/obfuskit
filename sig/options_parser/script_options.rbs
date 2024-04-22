@@ -3,6 +3,7 @@ module OptionsParser
     attr_accessor dot_env_file_path: String
     attr_accessor dot_env_file_paths: [String]
     attr_accessor env_var_keys: [String]
+    attr_accessor keep_annotation: String?
     attr_accessor output_language: String?
     attr_accessor output_type_name: String
     attr_accessor package_name: String?
@@ -13,6 +14,7 @@ module OptionsParser
 
     def dot_env_file_path_options: -> OptionParser
     def env_var_keys_option: -> OptionParser
+    def keep_annotation_options: -> OptionParser
     def output_language_option: -> OptionParser
     def output_type_name_option: -> OptionParser
     def package_name_option: -> OptionParser

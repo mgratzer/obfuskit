@@ -4,7 +4,7 @@ require 'optparse'
 class OptionsParser
   class ScriptOptions
 
-    attr_accessor :output_language, :env_var_keys, :package_name, :output_type_name, :dot_env_file_path
+    attr_accessor :output_language, :env_var_keys, :package_name, :output_type_name, :dot_env_file_path, :keep_annotation
 
     def initialize
       self.output_language = nil
@@ -12,6 +12,7 @@ class OptionsParser
       self.package_name = nil
       self.output_type_name = "ObfusKit"
       self.dot_env_file_path = ".env"
+      self.keep_annotation = nil
     end
 
     def define_options(parser)
@@ -25,6 +26,7 @@ class OptionsParser
       package_name_option(parser)
       output_type_name_option(parser)
       dot_env_file_path_options(parser)
+      keep_annotation_options(parser)
 
       parser.separator ""
       parser.separator "Common options:"
@@ -73,6 +75,13 @@ class OptionsParser
     def dot_env_file_path_options(parser)
       parser.on("-e", "--env [PATH]", "Path to an alternative .env file") do |value|
         self.dot_env_file_path = value
+      end
+    end
+
+    def keep_annotation_options(parser)
+      parser.on("--keep-annotation [Annotation]", "Annotation to prevent key class obfuscation. e.g. @androidx.annotation.Kee
+") do |value|
+        self.keep_annotation = value
       end
     end
   end
